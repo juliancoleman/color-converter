@@ -48,6 +48,67 @@
       <div id="output"></div>
     </main>
 
-    <script></script>
+    <script>
+      function hex2luma(hex) {
+        if (hex.length === 3) {
+          const [r, g, b] = hex;
+          hex = `${r}${r}${g}${g}${b}${b}`
+        }
+  
+        return (
+          (parseInt(hex.substring(0, 2), 16) * .2126) + 
+          (parseInt(hex.substring(2, 4), 16) * .7125) + 
+          (parseInt(hex.substring(4, 6), 16) * .0722)
+        );
+      }
+
+      function hexToRgb(hex) {
+        var result = /^#?([a-fA-F\d]{1,2})([a-fA-F\d]{1,2})([a-fA-F\d]{1,2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : null;
+      }
+
+      function handleChange({ target }) {
+        const { value } = target;
+        
+        if (value.length === 3 || value.length === 6) {
+          const hexString = `#${value}`
+          document.body.style.backgroundColor = hexString;
+          
+          const luma = hex2luma(hexString.substring(1));
+          
+          if (luma > 128) {
+            document.body.style.color = "black";
+          } else {
+            document.body.style.color = "white";
+          }
+          
+          const {r, g, b} = hexToRgb(hexString) ?? {};
+          
+          output.innerHTML = `<pre>
+rgb(${r} ${g} ${b})
+
+rgb(${r}, ${g}, ${b})
+</pre>`
+        }
+      }
+
+      let hexInput;
+      let output;
+      
+      window.onload = () => {
+        output = document.getElementById("output");
+        hexInput = document.getElementById("hex-input");
+        
+        hexInput.addEventListener("input", handleChange);
+      }
+      
+      window.onunload = () => {
+        hexInput.removeEventListener("input", handleChange);
+      }
+    </script>
   </body>
 </html>
