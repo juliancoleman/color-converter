@@ -13,8 +13,7 @@
       }
 
       body {
-        color: white;
-        background-color: #111827;
+        background-color: #111827; /* gets overwritten by user input; just a default */
         transition: background-color 0.15s linear;
         height: 100vh;
         display: grid;
@@ -26,12 +25,10 @@
         gap: 1em;
         color: inherit;
         border-radius: 8px;
-        background-color: rgb(255 255 255 / .1);
         padding: 1em;
       }
       #hex-input {
         background: transparent;
-        border: 1px solid #cecece;
         color: inherit;
         padding: .75em;
         border-radius: .25em;
@@ -39,9 +36,35 @@
       #hex-input:invalid {
         border-color: red;
       }
+
+      /* on-dark styles */
+      body.on-dark {
+        color: white;
+      }
+
+      body.on-dark .glass-overlay {
+        background-color: rgb(255 255 255 / .1);
+      }
+
+      body.on-dark #hex-input {
+        border: 1px solid #cecece;
+      }
+
+      /* on-light styles */
+      body.on-light {
+        color: black;
+      }
+
+      body.on-light .glass-overlay {
+        background-color: rgb(0 0 0 / .1);
+      }
+
+      body.on-light #hex-input {
+        border: 1px solid #333;
+      }
     </style>
   </head>
-  <body>
+  <body class="on-dark">
     <main class="glass-overlay">
       <p>Enter a 3 or 6 digit hex</p>
       <input id="hex-input" type="search" pattern="^#?(?=(?:.{3}|.{6})$)[a-fA-F0-9]*$" />
@@ -81,9 +104,11 @@
           const luma = hex2luma(hexString.substring(1));
           
           if (luma > 128) {
-            document.body.style.color = "black";
+            document.body.classList.add("on-dark");
+            document.body.classList.remove("on-light");
           } else {
-            document.body.style.color = "white";
+            document.body.classList.remove("on-dark");
+            document.body.classList.add("on-light");
           }
           
           const {r, g, b} = hexToRgb(hexString) ?? {};
