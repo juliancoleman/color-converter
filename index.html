@@ -102,14 +102,13 @@
           document.body.style.backgroundColor = hexString;
           
           const luma = hex2luma(hexString.substring(1));
-          console.log(luma);
           
           if (luma > 128) {
-            document.body.classList.add("on-dark");
-            document.body.classList.remove("on-light");
-          } else {
             document.body.classList.remove("on-dark");
             document.body.classList.add("on-light");
+          } else {
+            document.body.classList.add("on-dark");
+            document.body.classList.remove("on-light");
           }
           
           const {r, g, b} = hexToRgb(hexString) ?? {};
