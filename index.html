@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Color Converter</title>
+    <style>
+      body, main, figure, p, ul, li {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        color: white;
+        background-color: #111827;
+        transition: background-color 0.15s linear;
+        height: 100vh;
+        display: grid;
+        place-content: center;
+      }
+
+      .glass-overlay {
+        display: grid;
+        gap: 1em;
+        color: inherit;
+        border-radius: 8px;
+        background-color: rgb(255 255 255 / .1);
+        padding: 1em;
+      }
+      #hex-input {
+        background: transparent;
+        border: 1px solid #cecece;
+        color: inherit;
+        padding: .75em;
+        border-radius: .25em;
+      }
+      #hex-input:invalid {
+        border-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="glass-overlay">
+      <p>Enter a 3 or 6 digit hex</p>
+      <input id="hex-input" type="search" pattern="^#?(?=(?:.{3}|.{6})$)[a-fA-F0-9]*$" />
+      <div id="output"></div>
+    </main>
+
+    <script></script>
+  </body>
+</html>
