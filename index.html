@@ -102,6 +102,7 @@
           document.body.style.backgroundColor = hexString;
           
           const luma = hex2luma(hexString.substring(1));
+          console.log(luma);
           
           if (luma > 128) {
             document.body.classList.add("on-dark");
